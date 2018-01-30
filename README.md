@@ -1,3 +1,3 @@
 # ionic-cifras
 
-testando...
+Aplicativo de cifras pessoal.

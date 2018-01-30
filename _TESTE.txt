@@ -1,2 +1,2 @@
 pasta original
-pasta 2
+pasta 2 s

@@ -17,9 +17,10 @@ export class MyApp {
 	
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = MusicasPage;  
+  //rootPage: any = MusicasPage;  
   //rootPage: any = ArtistasPage;
   //rootPage: any = TonalidadesPage;
+  rootPage: any = RepertoriosPage;
 
   pages: Array<{title: string, component: any}>;
   pagesAcordes: Array<{title: string, component: any}>;
@@ -29,9 +30,9 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Músicas', component: MusicasPage },		  
-	  { title: 'Artistas', component: ArtistasPage },		  
-	  { title: 'Tonalidades', component: TonalidadesPage },
+      { title: 'Todas as Músicas', component: MusicasPage },		  
+	  { title: 'Agrupado por Artistas', component: ArtistasPage },		  
+	  { title: 'Agrupado por Tonalidades', component: TonalidadesPage },
       { title: 'Repertórios', component: RepertoriosPage },
     ];
     this.pagesAcordes = [

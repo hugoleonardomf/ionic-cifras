@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, LoadingController, NavParams  } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, NavParams, reorderArray  } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { DetalhesPage } from '../detalhes/detalhes';
 import 'rxjs/add/operator/map';
@@ -71,6 +71,15 @@ export class MusicasPage {
 	this.navCtrl.push(DetalhesPage, {
       cifraIdParam: item.id
     });
+  }  
+
+  reorderItems(indexes) {
+    this.items = reorderArray(this.items, indexes);    
+    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&orderTo=" +  indexes['to'];
+    this.http.get(urlParam).map(res => res.json())
+      .subscribe(data => {
+        // handle update success
+    });     
   }  
     
   removeAcento(value) {

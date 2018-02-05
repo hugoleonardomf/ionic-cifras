@@ -14,30 +14,40 @@ import { AcordesCavacoPage } from '../pages/acordes-cavaco/acordes-cavaco';
 })
 
 export class MyApp {
-	
+
   @ViewChild(Nav) nav: Nav;
 
-  //rootPage: any = MusicasPage;  
+  rootPage: any = MusicasPage;  
   //rootPage: any = ArtistasPage;
   //rootPage: any = TonalidadesPage;
-  rootPage: any = RepertoriosPage;
+  //rootPage: any = RepertoriosPage;
 
-  pages: Array<{title: string, component: any}>;
-  pagesAcordes: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
+  pagesMusicas: Array<{ title: string, component: any }>;
+  pagesRepertorios: Array<{ title: string, component: any }>;
+  pagesAcordes: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-	  
-    this.initializeApp();
 
+    this.initializeApp();
     this.pages = [
-      { title: 'Todas as Músicas', component: MusicasPage },		  
-	  { title: 'Agrupado por Artistas', component: ArtistasPage },		  
-	  { title: 'Agrupado por Tonalidades', component: TonalidadesPage },
+      { title: 'Todas as Músicas', component: MusicasPage },
+      { title: 'Por Artista/Grupo', component: ArtistasPage },
+      { title: 'Por Tonalidade', component: TonalidadesPage },
+      { title: 'Repertórios', component: RepertoriosPage },
+      { title: 'Acordes Cavaco/Banjo', component: AcordesCavacoPage },
+    ];
+    this.pagesRepertorios = [
       { title: 'Repertórios', component: RepertoriosPage },
     ];
+    this.pagesMusicas = [
+      { title: 'Todas', component: MusicasPage },
+      { title: 'Por Artista/Grupo', component: ArtistasPage },
+      { title: 'Por Tonalidade', component: TonalidadesPage },
+    ];    
     this.pagesAcordes = [
       { title: 'Cavaco/Banjo', component: AcordesCavacoPage },
-    ];	
+    ];
 
   }
 

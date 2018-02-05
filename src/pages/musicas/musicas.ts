@@ -75,10 +75,17 @@ export class MusicasPage {
 
   reorderItems(indexes) {
     this.items = reorderArray(this.items, indexes);    
-    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&orderTo=" +  indexes['to'];
+    //console.log(indexes['from']);
+    //console.log(this.items[indexes['from']].ordem);
+    //console.log(this.items[indexes['from']].id);
+    console.log(indexes['to']);
+    console.log(this.items[(indexes['to'] - 1)].ordem);
+    console.log(this.items[indexes['to']].ordem);
+    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&orderTo=" +  (this.items[(indexes['to'] - 1)].ordem - 1);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {
         // handle update success
+        this.fetchContent();
     });     
   }  
     

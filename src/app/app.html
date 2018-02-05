@@ -10,13 +10,30 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
-	  <ion-item-divider>
-	    Acordes
-	  </ion-item-divider>
-      <button menuClose ion-item (click)="openPage(pagesAcordes[0])">
-         Cavaco/Banjo
+      <!--
+      <button menuClose ion-item (click)="openPage(pages[0])">
+        Repertórios
       </button>
-    </ion-list>	
+      <ion-item-divider>
+        Músicas
+      </ion-item-divider>
+      <button menuClose ion-item (click)="openPage(pagesMusicas[0])">
+        Todas
+      </button>
+      <button menuClose ion-item (click)="openPage(pagesMusicas[1])">
+        Por Artista/Grupo
+      </button>
+      <button menuClose ion-item (click)="openPage(pagesMusicas[2])">
+        Por Tonalidade
+      </button>
+      <ion-item-divider>
+        Acordes
+      </ion-item-divider>
+      <button menuClose ion-item (click)="openPage(pagesAcordes[0])">
+        Cavaco/Banjo
+      </button>
+      -->
+    </ion-list>
   </ion-content>
 
 </ion-menu>

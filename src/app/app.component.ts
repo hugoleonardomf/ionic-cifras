@@ -17,8 +17,8 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = MusicasPage;  
-  //rootPage: any = ArtistasPage;
+  //rootPage: any = MusicasPage;  
+  rootPage: any = ArtistasPage;
   //rootPage: any = TonalidadesPage;
   //rootPage: any = RepertoriosPage;
 

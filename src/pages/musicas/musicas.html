@@ -11,8 +11,8 @@
 
   <ion-searchbar (ionInput)="getItems($event)" placeholder="Pesquisar" animated="true"></ion-searchbar>
   <ion-list reorder="{{repertorioIdParam ? true : false}}" (ionItemReorder)="reorderItems($event)">
-    <button ion-item *ngFor="let i of items" (click)="itemSelected(i)">
-	   <h2><b>{{i.titulo}}</b></h2>
+    <button ion-item *ngFor="let i of items; let idx=index" (click)="itemSelected(i)">
+	   <h2><b>{{idx + 1}}. {{i.titulo}}</b></h2>
 	   <p>Grupo: {{i.grupo}}</p>
 	   <p item-right>Tom: {{i.tom}}</p>
     </button>  

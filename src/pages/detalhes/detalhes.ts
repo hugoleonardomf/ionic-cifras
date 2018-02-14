@@ -15,7 +15,7 @@ export class DetalhesPage {
   public cifraId: string;
   public cifra: any;
 
-  private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";
+  private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public http: Http) {
     this.cifraId = this.navParams.get('cifraIdParam');

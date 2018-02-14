@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class TonalidadesPage {
 	
   public items: Array<any>;  
-  private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=tons";  
+  private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=tons";  
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http) {
 	  this.fetchContent();

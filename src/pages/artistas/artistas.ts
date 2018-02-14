@@ -13,7 +13,7 @@ export class ArtistasPage {
 		
   public items: Array<any>;  
   public itemsStored: Array<any>;  
-  private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=artistas";  
+  private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=artistas";  
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http) {
 	  this.fetchContent();

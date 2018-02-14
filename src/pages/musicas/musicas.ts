@@ -18,7 +18,7 @@ export class MusicasPage {
   public repertorioIdParam: string;
   public repertorioDescParam: string;
 
-  private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas";
+  private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http) {
     this.grupoParam = this.navParams.get('grupoParam');
@@ -89,7 +89,8 @@ export class MusicasPage {
     }
     console.log(indexes['from'] + " > " + indexes['to']);
     console.log(this.items[indexToCustom].ordem + "-" + this.items[indexToCustom].titulo);
-    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&orderTo=" + (this.items[indexToCustom].ordem - qtdSubtract);
+    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&orderTo=" + (this.items[indexToCustom].ordem - qtdSubtract);
+    console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {
         // handle update success

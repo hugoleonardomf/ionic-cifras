@@ -17,6 +17,7 @@ export class MusicasPage {
   public tomParam: string;
   public repertorioIdParam: string;
   public repertorioDescParam: string;
+
   private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http) {

@@ -2,33 +2,39 @@
   <ion-navbar>
     <ion-title>{{cifra?.grupo}}</ion-title>
     <ion-buttons end>
-	  <!--
+      <!--
       <button ion-button clear (click)="excluirCifra()">Excluir</button>
       <button ion-button icon-only (click)="presentConfirm()">
         <ion-icon name="md-close"></ion-icon>
       </button>
-  	  <button ion-button (click)="editarCifra()" padding-right>Editar</button>	  
-	  -->
+  	  <button ion-button (click)="editarCifra()" padding-right>Editar</button>
+    -->
+      <button ion-button (click)="goPrevItem()">
+        <ion-icon name="md-arrow-up"></ion-icon>
+      </button>
+      <button ion-button (click)="goNextItem()" padding-right>
+        <ion-icon name="md-arrow-down"></ion-icon>
+      </button>
+      <!--
 	  <button ion-button (click)="scrollTop()" >
-		<ion-icon name="md-arrow-up"></ion-icon>	  
+		<ion-icon name="md-arrow-up"></ion-icon>
 	  </button>
 	  <button ion-button (click)="scrollBottom()" padding-right>
-		<ion-icon name="md-arrow-down"></ion-icon>	  
+		<ion-icon name="md-arrow-down"></ion-icon>
 	  </button>
-	  <!--
 	  <button ion-button (click)="playScroll()" padding-right [hidden]="scrollRun">
-		<ion-icon name="md-play"></ion-icon>	  
+		<ion-icon name="md-play"></ion-icon>
 	  </button>
 	  <button ion-button (click)="pauseScroll()" padding-right [hidden]="!scrollRun">
-		<ion-icon name="md-pause"></ion-icon>	  
-	  </button>	  
+		<ion-icon name="md-pause"></ion-icon>
+	  </button>
 	  -->
-    </ion-buttons>	
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-	<div [innerHTML]="cifra?.texto"></div>
+  <div [innerHTML]="cifra?.texto"></div>
 
 </ion-content>

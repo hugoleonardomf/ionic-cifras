@@ -9,62 +9,50 @@ import { Http } from '@angular/http';
 })
 
 export class DetalhesPage {
-	
-  @ViewChild(Content) content: Content;	
-	
-  public cifraId : string;
+
+  @ViewChild(Content) content: Content;
+
+  public cifraId: string;
   public cifra: any;
 
-  //scroll
-  public scrollRun: boolean;
-  
-  private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";    
+  private url: string = "http://www.sisvend.com.br/cifrasService/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public http: Http) {
-      this.cifraId = this.navParams.get('cifraIdParam');
-	  this.fetchContent();
-	  this.scrollRun = false;
-  } 
-  
-  fetchContent():void {
+    this.cifraId = this.navParams.get('cifraIdParam');
+    this.fetchContent();
+  }
+
+  fetchContent(): void {
     let loading = this.loadingCtrl.create({
       content: 'Carregando...'
     });
     loading.present();
-	let paramsUrl = this.cifraId;
+    let paramsUrl = this.cifraId;
     this.http.get(this.url + paramsUrl).map(res => res.json())
       .subscribe(data => {
-		this.cifra = data.data[0];
+        this.cifra = data.data[0];
         loading.dismiss();
-    });  
-  }     
-  
+      });
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
-  }  
+  }
+
+  goPrevItem(): void{
+
+  }
+
+  goNextItem(): void{
+
+  }
 
   //scroll
-  scrollBottom():void {
-	  this.content.scrollToBottom();
-  }    
-  scrollTop():void {
-	  this.content.scrollToTop();
+  scrollBottom(): void {
+    this.content.scrollToBottom();
   }
-  
-  //rolagem automática
-  playScroll():void {
-	this.scrollRun = true;
-	this.playScroll2();
+  scrollTop(): void {
+    this.content.scrollToTop();
   }
-  
-  playScroll2():void {
-	this.scrollRun = true;
-	//this.content.scrollToTop();
-  }  
-  
-  pauseScroll():void {
-	this.scrollRun = false;
-	//this.content.scrollToTop();
-  }  
 
 }

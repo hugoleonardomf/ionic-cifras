@@ -12,7 +12,8 @@ import 'rxjs/add/operator/map';
 export class RepertoriosPage {
 
   public items: Array<any>;
-  public descricao: any;
+  public tap: number = 0;
+  public unlocked: boolean = false; //true/false
 
   private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=repertorios";
 
@@ -35,7 +36,8 @@ export class RepertoriosPage {
   itemSelected(item: any) {
     this.navCtrl.push(MusicasPage, {
       repertorioIdParam: item.id,
-      repertorioDescParam: item.descricao
+      repertorioDescParam: item.descricao,
+      unlocked: this.unlocked
     });
   }
 
@@ -45,7 +47,7 @@ export class RepertoriosPage {
       inputs: [
         {
           name: 'descricao',
-          placeholder: 'Informe uma descrição'
+          placeholder: 'Informe uma descrição',
         }
       ],
       buttons: [
@@ -59,11 +61,9 @@ export class RepertoriosPage {
         {
           text: 'Salvar',
           handler: data => {
-            console.log(data.descricao);
             let urlParams = this.url + "&repertorio_desc=" + data.descricao;
             this.http.get(urlParams).map(res => res.json())
               .subscribe(data => {
-                console.log(data.data[0].descricao);
                 this.fetchContent();
               });
           }
@@ -71,6 +71,74 @@ export class RepertoriosPage {
       ]
     });
     alert.present();
+  }
+
+  edit(item: any) {
+    let alert = this.alertCtrl.create({
+      title: 'Renomear Repertório',
+      inputs: [
+        {
+          name: 'descricao',
+          value: item.descricao
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Salvar',
+          handler: data => {
+            let urlParams = this.url + "&repertorio_id=" + item.id + "&repertorio_desc=" + data.descricao;
+            this.http.get(urlParams).map(res => res.json())
+              .subscribe(data => {
+                this.fetchContent();
+              });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  remove(item: any) {
+    let urlParams = this.url + "&repertorio_id=" + item.id + "&repertorio_sit=0";
+    this.http.get(urlParams).map(res => res.json())
+      .subscribe(data => {
+        this.fetchContent();
+      });
+  }
+
+  confirmRemove(item: any) {
+    let alert = this.alertCtrl.create({
+      title: 'Deseja excluir o Repertório ' + item.descricao + '?',
+      //message: 'Os arquivos também serão excluídos!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            //
+          }
+        },
+        {
+          text: 'Excluir',
+          handler: () => {
+            this.remove(item);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  tapEvent(e) {
+    this.tap++;
+    this.unlocked = this.tap >= 10 ? true : false;
   }
 
 }

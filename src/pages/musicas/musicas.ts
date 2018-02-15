@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, LoadingController, NavParams, reorderArray } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, NavParams, ActionSheetController, reorderArray } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { DetalhesPage } from '../detalhes/detalhes';
 import 'rxjs/add/operator/map';
@@ -17,14 +17,18 @@ export class MusicasPage {
   public tomParam: string;
   public repertorioIdParam: string;
   public repertorioDescParam: string;
+  public unlocked: boolean;
+  public order: boolean;
 
   private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http, public actionSheetCtrl: ActionSheetController) {
     this.grupoParam = this.navParams.get('grupoParam');
     this.tomParam = this.navParams.get('tomParam');
     this.repertorioIdParam = this.navParams.get('repertorioIdParam');
     this.repertorioDescParam = this.navParams.get('repertorioDescParam');
+    this.unlocked = this.navParams.get('unlocked');
+    this.order = false;
     this.fetchContent();
   }
 
@@ -69,6 +73,7 @@ export class MusicasPage {
   }
 
   itemSelected(item: any) {
+    this.order = false;
     this.navCtrl.push(DetalhesPage, {
       cifraIdParam: item.id
     });
@@ -96,6 +101,34 @@ export class MusicasPage {
         // handle update success
         this.fetchContent();
       });
+  }
+
+  opcoesActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Escolha uma opção',
+      buttons: [
+        {
+          text: this.order ? 'Cancelar Ordenação' : 'Ordenar Músicas',
+          handler: () => {
+            if(this.order) {
+              this.order = false;
+            }
+            else {
+              this.order = true;
+            }
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
 
   removeAcento(value) {

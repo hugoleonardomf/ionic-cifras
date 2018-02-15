@@ -3,14 +3,19 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Músicas {{grupoParam ? '- Artista: ' + grupoParam : ''}} {{tomParam ? '- Tom: ' + tomParam : ''}} {{repertorioIdParam ? '- Repert.: ' + repertorioDescParam : ''}} ({{items?.length}})</ion-title>
+    <ion-title>Músicas {{grupoParam ? '- Artista: ' + grupoParam : ''}} {{tomParam ? '- Tom: ' + tomParam : ''}} {{repertorioIdParam ? '- Repert.: ' + repertorioDescParam : ''}} ({{items ? items?.length : 0}})</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="!repertorioIdParam === false && unlocked" (click)="opcoesActionSheet()" padding-right>
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>    
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-searchbar (ionInput)="getItems($event)" placeholder="Pesquisar" animated="true"></ion-searchbar>
-  <ion-list reorder="{{repertorioIdParam ? true : false}}" (ionItemReorder)="reorderItems($event)">
+  <ion-list reorder="{{order ? true : false}}" (ionItemReorder)="reorderItems($event)">
     <button ion-item *ngFor="let i of items; let idx=index" (click)="itemSelected(i)">
 	   <h2><b>{{idx + 1}}. {{i.titulo}}</b></h2>
 	   <p>Grupo: {{i.grupo}}</p>

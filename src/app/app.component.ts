@@ -37,14 +37,14 @@ export class MyApp {
       { title: 'Repertórios', component: RepertoriosPage },
       { title: 'Acordes Cavaco/Banjo', component: AcordesCavacoPage },
     ];
-    this.pagesRepertorios = [
-      { title: 'Repertórios', component: RepertoriosPage },
-    ];
     this.pagesMusicas = [
-      { title: 'Todas', component: MusicasPage },
+      { title: 'Todas as Músicas', component: MusicasPage },
       { title: 'Por Artista/Grupo', component: ArtistasPage },
       { title: 'Por Tonalidade', component: TonalidadesPage },
     ];
+    this.pagesRepertorios = [
+      { title: 'Repertórios', component: RepertoriosPage },
+    ];    
     this.pagesAcordes = [
       { title: 'Cavaco/Banjo', component: AcordesCavacoPage },
     ];

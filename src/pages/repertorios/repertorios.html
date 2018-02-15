@@ -4,16 +4,23 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Repertórios ({{items?.length}})</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="inserir()" padding-right>
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list>
-    <button ion-item *ngFor="let i of items" (click)="itemSelected(i)">
-	   <h2><b>{{i.id}}. {{i.descricao}}</b></h2>
-	   <p>{{i.qtdmusicas}} música(s)</p>
-    </button>  
-  </ion-list> 
-  
+    <button ion-item *ngFor="let i of items; let idx = index;" (click)="itemSelected(i)">
+      <h2>
+        <b>{{idx + 1}}. {{i.descricao}}</b>
+      </h2>
+      <p>{{i.qtdmusicas}} música(s)</p>
+    </button>
+  </ion-list>
+
 </ion-content>

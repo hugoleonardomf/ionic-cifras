@@ -18,9 +18,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   //rootPage: any = MusicasPage;
-  //rootPage: any = ArtistasPage;
+  rootPage: any = ArtistasPage;
   //rootPage: any = TonalidadesPage;
-  rootPage: any = RepertoriosPage;
+  //rootPage: any = RepertoriosPage;
 
   pages: Array<{ title: string, component: any }>;
   pagesMusicas: Array<{ title: string, component: any }>;

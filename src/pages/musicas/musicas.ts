@@ -105,7 +105,7 @@ export class MusicasPage {
 
   opcoesActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Escolha uma opção',
+      //title: 'Escolha uma opção',
       buttons: [
         {
           text: this.order ? 'Cancelar Ordenação' : 'Ordenar Músicas',

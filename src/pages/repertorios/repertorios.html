@@ -23,10 +23,10 @@
         <p>{{i.qtdmusicas}} música(s)</p>
       </ion-item>
       <ion-item-options side="right" *ngIf="unlocked">
-        <button ion-button color="primary" (click)="edit(i)" large padding-left padding-right padding-top>
+        <button id="btnSlide" ion-button color="primary" (click)="edit(i)" large padding-left padding-right>
           <ion-icon name="create"></ion-icon>
         </button>
-        <button ion-button color="danger" (click)="confirmRemove(i);" large padding-left padding-right padding-top>
+        <button id="btnSlide" ion-button color="danger" (click)="confirmRemove(i);" large padding-left padding-right>
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>

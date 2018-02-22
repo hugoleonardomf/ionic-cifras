@@ -75,7 +75,8 @@ export class MusicasPage {
   itemSelected(item: any) {
     this.order = false;
     this.navCtrl.push(DetalhesPage, {
-      cifraIdParam: item.id
+      cifraIdParam: item.id,
+      listaParam: this.items
     });
   }
 

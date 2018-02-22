@@ -138,7 +138,7 @@ export class RepertoriosPage {
 
   tapEvent(e) {
     this.tap++;
-    this.unlocked = this.tap >= 10 ? true : false;
+    this.unlocked = this.tap >= 5 ? true : false;
   }
 
 }

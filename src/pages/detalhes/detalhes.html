@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{cifra?.grupo}}</ion-title>
+    <ion-title>{{index}}. {{cifra?.titulo}}</ion-title>
     <ion-buttons end>
       <!--
       <button ion-button clear (click)="excluirCifra()">Excluir</button>
@@ -9,10 +9,10 @@
       </button>
   	  <button ion-button (click)="editarCifra()" padding-right>Editar</button>
     -->
-      <button ion-button (click)="goPrevItem()">
+      <button ion-button (click)="goPrevItem()" [disabled]="auxPrev == -1">
         <ion-icon name="md-arrow-up"></ion-icon>
       </button>
-      <button ion-button (click)="goNextItem()">
+      <button ion-button (click)="goNextItem()" [disabled]="auxNext == items?.length">
         <ion-icon name="md-arrow-down"></ion-icon>
       </button>
       <!--

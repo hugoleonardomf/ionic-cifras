@@ -12,13 +12,19 @@ export class DetalhesPage {
 
   @ViewChild(Content) content: Content;
 
+  public items: Array<any>;
   public cifraId: string;
   public cifra: any;
+  public index: number;
+  public auxPrev: any;
+  public auxNext: any;
 
   private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public http: Http) {
+    this.items = this.navParams.get('listaParam');
     this.cifraId = this.navParams.get('cifraIdParam');
+    this.setPrevNextItem();
     this.fetchContent();
   }
 
@@ -39,12 +45,32 @@ export class DetalhesPage {
     this.viewCtrl.dismiss();
   }
 
-  goPrevItem(): void{
-
+  goPrevItem(): void {
+    this.cifraId = this.items[this.auxPrev].id;
+    this.setPrevNextItem();
+    this.fetchContent();
   }
 
-  goNextItem(): void{
+  goNextItem(): void {
+    this.cifraId = this.items[this.auxNext].id;
+    this.setPrevNextItem();
+    this.fetchContent();
+  }
 
+  setPrevNextItem() {
+    for (let i in this.items) {
+      if (this.items[i].id == this.cifraId) {
+        this.auxPrev = i;
+        this.auxNext = i;
+        this.index = this.auxPrev;
+        this.index++;
+        this.auxPrev--;
+        this.auxNext++;
+        console.log(this.auxPrev);
+        console.log(this.auxNext);
+        break;
+      }
+    }
   }
 
   //scroll

@@ -16,7 +16,7 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let i of items; let idx = index;">
-      <ion-item (click)="itemSelectedAdd(i)">
+      <ion-item (click)="itemSelected(i)">
         <h2>
           <b>{{idx + 1}}. {{i.descricao}}</b>
         </h2>

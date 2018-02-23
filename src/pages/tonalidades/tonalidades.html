@@ -10,8 +10,8 @@
 <ion-content>
 
   <ion-list>
-    <button ion-item *ngFor="let i of items" (click)="itemSelected(i)">
-	   <h2><b>Tom: {{i.tom}}</b></h2>
+    <button ion-item *ngFor="let i of items; let idx=index" (click)="itemSelected(i)">
+	   <h2><b>{{idx + 1}}. Tom: {{i.tom}}</b></h2>
 	   <p>{{i.qtdmusicas}} música(s)</p>
     </button>  
   </ion-list> 

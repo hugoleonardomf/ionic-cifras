@@ -81,6 +81,9 @@ export class RepertoriosPage {
             this.http.get(urlParams).map(res => res.json())
               .subscribe(data => {
                 this.fetchContent();
+                console.log(data.data);
+                //abrir tela de adição de musicas ao criar repert.
+                //this.itemSelectedAdd(data.data[0]);
               });
           }
         }

@@ -114,7 +114,6 @@ export class MusicasPage {
     let aux = 0;
     for (let i of this.items) {
       if ((i.selecao != 0 && i.repertorio_id == this.repertorioIdParam) || i.selecao == 1) {
-        console.log(i);
         arr[aux] = i.id;
         aux++;
       }
@@ -125,13 +124,12 @@ export class MusicasPage {
     }
     if(this.items.length != this.itemsStored.length){ //modo pesquisa
       this.toast.create({ message: 'Saia do modo pesquisa para salvar todas as alterações.', duration: 3000, position: 'bottom' }).present();
-      return false;    
+      return false;
     }
     let urlParam = this.urlAddMusic;
     urlParam = urlParam + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modo_add=1" + "&repertorio_arr_music=" + arr;
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {
-        console.log(data);
         this.navCtrl.pop();
       });
   }

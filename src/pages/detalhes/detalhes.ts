@@ -66,8 +66,6 @@ export class DetalhesPage {
         this.index++;
         this.auxPrev--;
         this.auxNext++;
-        console.log(this.auxPrev);
-        console.log(this.auxNext);
         break;
       }
     }

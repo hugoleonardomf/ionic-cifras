@@ -3,12 +3,16 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Músicas {{grupoParam ? '- Artista: ' + grupoParam : ''}} {{tomParam ? '- Tom: ' + tomParam : ''}} {{repertorioIdParam ? '- Repert.: ' + repertorioDescParam : ''}} ({{items ? items?.length : 0}})</ion-title>
+    <ion-title>{{modoAdd? 'Adicionar' : ''}} Músicas {{grupoParam ? '- Artista: ' + grupoParam : ''}} {{tomParam ? '- Tom: ' + tomParam
+      : ''}} {{repertorioIdParam ? '- Repert.: ' + repertorioDescParam : ''}} ({{items ? items?.length : 0}})</ion-title>
     <ion-buttons end>
       <button ion-button icon-only *ngIf="!repertorioIdParam === false && unlocked" (click)="opcoesActionSheet()">
         <ion-icon name="md-more"></ion-icon>
       </button>
-    </ion-buttons>    
+      <button ion-button icon-only *ngIf="modoAdd" (click)="salvarMusicasRepertorio()">
+        <ion-icon name="md-checkmark" color="" style="margin-right:5px;"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -17,9 +21,15 @@
   <ion-searchbar (ionInput)="getItems($event)" placeholder="Pesquisar" animated="true"></ion-searchbar>
   <ion-list reorder="{{order ? true : false}}" (ionItemReorder)="reorderItems($event)">
     <button ion-item *ngFor="let i of items; let idx=index" (click)="itemSelected(i)">
-	   <h2><b>{{idx + 1}}. {{i.titulo}}</b></h2>
-	   <p>Grupo: {{i.grupo}}</p>
-	   <p item-right>Tom: {{i.tom}}</p>
+      <h2>
+        <b>{{idx + 1}}. {{i.titulo}}</b>
+      </h2>
+      <p>Grupo: {{i.grupo}}</p>
+      <p item-right>Tom: {{i.tom}}</p>
+      <ion-icon name="md-checkmark-circle-outline" item-end color="light" *ngIf="modoAdd && (i.repertorio_id != repertorioIdParam && i.selecao != 1) || (i.repertorio_id == repertorioIdParam && i.selecao == 0) "
+        (click)="setItemListAdd(i, idx);"></ion-icon>
+      <ion-icon name="md-checkmark-circle-outline" item-end color="primary" *ngIf="modoAdd && (i.repertorio_id == repertorioIdParam && i.selecao != 0) || (i.repertorio_id != repertorioIdParam && i.selecao == 1)"
+        (click)="setItemListAdd(i, idx);"></ion-icon>
     </button>
   </ion-list>
 

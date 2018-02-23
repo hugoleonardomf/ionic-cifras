@@ -16,16 +16,20 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let i of items; let idx = index;">
-      <ion-item (click)="itemSelected(i)">
+      <ion-item (click)="itemSelectedAdd(i)">
         <h2>
           <b>{{idx + 1}}. {{i.descricao}}</b>
         </h2>
         <p>{{i.qtdmusicas}} música(s)</p>
       </ion-item>
       <ion-item-options side="right" *ngIf="unlocked">
+        <button id="btnSlide" ion-button color="dark" (click)="itemSelectedAdd(i)" large padding-left padding-right>
+          <ion-icon name="done-all"></ion-icon>
+        </button>
         <button id="btnSlide" ion-button color="primary" (click)="edit(i)" large padding-left padding-right>
           <ion-icon name="create"></ion-icon>
         </button>
+
         <button id="btnSlide" ion-button color="danger" (click)="confirmRemove(i);" large padding-left padding-right>
           <ion-icon name="trash"></ion-icon>
         </button>

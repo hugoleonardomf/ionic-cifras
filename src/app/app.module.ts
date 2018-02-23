@@ -18,15 +18,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     MusicasPage,
-	ArtistasPage,
-	TonalidadesPage,
+    ArtistasPage,
+    TonalidadesPage,
     RepertoriosPage,
-	AcordesCavacoPage,
-	DetalhesPage
+    AcordesCavacoPage,
+    DetalhesPage
   ],
   imports: [
     BrowserModule,
-	HttpModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       mode: 'md'
@@ -36,16 +36,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     MusicasPage,
-	ArtistasPage,
-	TonalidadesPage,
+    ArtistasPage,
+    TonalidadesPage,
     RepertoriosPage,
-	AcordesCavacoPage,
-	DetalhesPage
+    AcordesCavacoPage,
+    DetalhesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

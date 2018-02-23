@@ -26,11 +26,19 @@ export class RepertoriosPage {
       content: 'Carregando...'
     });
     loading.present();
+    this.loadData();
+    loading.dismiss();
+  }
+
+  loadData() {
     this.http.get(this.url).map(res => res.json())
       .subscribe(data => {
         this.items = data.data;
-        loading.dismiss();
       });
+  }
+
+  ionViewDidEnter() {
+    this.loadData();
   }
 
   itemSelected(item: any) {
@@ -38,6 +46,14 @@ export class RepertoriosPage {
       repertorioIdParam: item.id,
       repertorioDescParam: item.descricao,
       unlocked: this.unlocked
+    });
+  }
+
+  itemSelectedAdd(item: any) {
+    this.navCtrl.push(MusicasPage, {
+      repertorioIdParam: item.id,
+      repertorioDescParam: item.descricao,
+      modoAdd: true
     });
   }
 

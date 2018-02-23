@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, LoadingController, NavParams, ActionSheetController, reorderArray } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, NavParams, ActionSheetController, ToastController, reorderArray } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { DetalhesPage } from '../detalhes/detalhes';
 import 'rxjs/add/operator/map';
@@ -19,15 +19,18 @@ export class MusicasPage {
   public repertorioDescParam: string;
   public unlocked: boolean;
   public order: boolean;
+  public modoAdd: string;
 
   private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas";
+  private urlAddMusic: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=repertorios";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http, public actionSheetCtrl: ActionSheetController, private toast: ToastController) {
     this.grupoParam = this.navParams.get('grupoParam');
     this.tomParam = this.navParams.get('tomParam');
     this.repertorioIdParam = this.navParams.get('repertorioIdParam');
     this.repertorioDescParam = this.navParams.get('repertorioDescParam');
     this.unlocked = this.navParams.get('unlocked');
+    this.modoAdd = this.navParams.get('modoAdd');
     this.order = false;
     this.fetchContent();
   }
@@ -44,15 +47,39 @@ export class MusicasPage {
     else if (this.tomParam) {
       urlParam = this.url + "&tom=" + this.tomParam.replace('+', '0').replace('#', 'Z');
     }
-    else if (this.repertorioIdParam) {
+    else if (this.repertorioIdParam && !this.modoAdd) {
       urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam;
     }
+    else if (this.repertorioIdParam && this.modoAdd) {
+      urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modo_add=1";
+    }
+    console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {
         this.items = data.data;
         this.itemsStored = data.data;
         loading.dismiss();
       });
+  }
+
+  setItemListAdd(item: any, idx: any) {
+    console.log(this.items[idx].selecao);
+    if (this.items[idx].selecao == undefined) {
+      if (this.items[idx].repertorio_id == this.repertorioIdParam) {
+        this.items[idx].selecao = 0;
+      }
+      else {
+        this.items[idx].selecao = 1;
+      }
+    }
+    else {
+      if (this.items[idx].selecao == 0) {
+        this.items[idx].selecao = 1;
+      }
+      else {
+        this.items[idx].selecao = 0;
+      }
+    }
   }
 
   getItems(ev: any) {
@@ -73,11 +100,40 @@ export class MusicasPage {
   }
 
   itemSelected(item: any) {
+    if (this.modoAdd) return false;
     this.order = false;
     this.navCtrl.push(DetalhesPage, {
       cifraIdParam: item.id,
       listaParam: this.items
     });
+  }
+
+  salvarMusicasRepertorio() {
+    let arr: Array<any>;
+    arr = new Array();
+    let aux = 0;
+    for (let i of this.items) {
+      if ((i.selecao != 0 && i.repertorio_id == this.repertorioIdParam) || i.selecao == 1) {
+        console.log(i);
+        arr[aux] = i.id;
+        aux++;
+      }
+    }
+    if (arr.length == 0) {
+      this.toast.create({ message: 'Selecione ao menos 1 música para adicionar.', duration: 3000, position: 'bottom' }).present();
+      return false;
+    }
+    if(this.items.length != this.itemsStored.length){ //modo pesquisa
+      this.toast.create({ message: 'Saia do modo pesquisa para salvar todas as alterações.', duration: 3000, position: 'bottom' }).present();
+      return false;    
+    }
+    let urlParam = this.urlAddMusic;
+    urlParam = urlParam + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modo_add=1" + "&repertorio_arr_music=" + arr;
+    this.http.get(urlParam).map(res => res.json())
+      .subscribe(data => {
+        console.log(data);
+        this.navCtrl.pop();
+      });
   }
 
   reorderItems(indexes) {
@@ -111,7 +167,7 @@ export class MusicasPage {
         {
           text: this.order ? 'Cancelar Ordenação' : 'Ordenar Músicas',
           handler: () => {
-            if(this.order) {
+            if (this.order) {
               this.order = false;
             }
             else {

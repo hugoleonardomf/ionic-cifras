@@ -10,10 +10,10 @@
   	  <button ion-button (click)="editarCifra()" padding-right>Editar</button>
     -->
       <button ion-button (click)="goPrevItem()" [disabled]="auxPrev == -1">
-        <ion-icon name="md-arrow-up"></ion-icon>
+        <ion-icon name="md-arrow-up" class="btnPrevNext"></ion-icon>
       </button>
       <button ion-button (click)="goNextItem()" [disabled]="auxNext == items?.length">
-        <ion-icon name="md-arrow-down"></ion-icon>
+        <ion-icon name="md-arrow-down" class="btnPrevNext"></ion-icon>
       </button>
       <!--
 	  <button ion-button (click)="scrollTop()" >

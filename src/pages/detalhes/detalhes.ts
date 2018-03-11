@@ -38,6 +38,7 @@ export class DetalhesPage {
       .subscribe(data => {
         this.cifra = data.data[0];
         loading.dismiss();
+        this.scrollTop();
       });
   }
 
@@ -75,6 +76,7 @@ export class DetalhesPage {
   scrollBottom(): void {
     this.content.scrollToBottom();
   }
+
   scrollTop(): void {
     this.content.scrollToTop();
   }

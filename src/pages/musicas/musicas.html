@@ -7,10 +7,10 @@
       : ''}} {{repertorioIdParam ? '- Repert.: ' + repertorioDescParam : ''}} ({{items ? items?.length : 0}})</ion-title>
     <ion-buttons end>
       <button ion-button icon-only *ngIf="!repertorioIdParam === false && unlocked" (click)="opcoesActionSheet()">
-        <ion-icon name="md-more"></ion-icon>
+        <ion-icon name="md-more" style="padding-right:10px;"></ion-icon>
       </button>
       <button ion-button icon-only *ngIf="modoAdd" (click)="salvarMusicasRepertorio()">
-        <ion-icon name="md-checkmark" color="" style="margin-right:5px;"></ion-icon>
+        <ion-icon name="md-checkmark" color="" style="margin-right:10px;"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -25,11 +25,12 @@
         <b>{{idx + 1}}. {{i.titulo}}</b>
       </h2>
       <p>Grupo: {{i.grupo}}</p>
-      <p item-right>Tom: {{i.tom}}</p>
+      <p *ngIf="modoAdd">Tom: {{i.tom}}</p>
+      <p item-right *ngIf="!modoAdd">Tom: {{i.tom}}</p>
       <ion-icon name="md-checkmark-circle-outline" item-end color="light" *ngIf="modoAdd && (i.repertorio_id != repertorioIdParam && i.selecao != 1) || (i.repertorio_id == repertorioIdParam && i.selecao == 0) "
-        (click)="setItemListAdd(i, idx);"></ion-icon>
+        (click)="setItemListAdd(i, idx);" style="margin-right:12px;"></ion-icon>
       <ion-icon name="md-checkmark-circle-outline" item-end color="primary" *ngIf="modoAdd && (i.repertorio_id == repertorioIdParam && i.selecao != 0) || (i.repertorio_id != repertorioIdParam && i.selecao == 1)"
-        (click)="setItemListAdd(i, idx);"></ion-icon>
+        (click)="setItemListAdd(i, idx);" style="margin-right:12px;"></ion-icon>
     </button>
   </ion-list>
 

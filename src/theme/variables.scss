@@ -86,3 +86,16 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+
+
+
+
+
+.action-sheet-group {
+  overflow: auto !important;
+}
+
+.alert-message {
+  overflow-y: auto !important;
+}

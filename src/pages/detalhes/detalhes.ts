@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController, ModalController, ActionSheetController, Content } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ModalController, ActionSheetController, Content } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ElementRef } from '@angular/core';
 

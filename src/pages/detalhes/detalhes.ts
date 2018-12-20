@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController, LoadingController,
 import { Http } from '@angular/http';
 import { ElementRef } from '@angular/core';
 
-@IonicPage()
 @Component({
   selector: 'page-detalhes',
   templateUrl: 'detalhes.html',

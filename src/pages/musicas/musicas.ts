@@ -122,7 +122,7 @@ export class MusicasPage {
       this.toast.create({ message: 'Selecione ao menos 1 música para adicionar.', duration: 3000, position: 'bottom' }).present();
       return false;
     }
-    if(this.items.length != this.itemsStored.length){ //modo pesquisa
+    if (this.items.length != this.itemsStored.length) { //modo pesquisa
       this.toast.create({ message: 'Saia do modo pesquisa para salvar todas as alterações.', duration: 3000, position: 'bottom' }).present();
       return false;
     }
@@ -136,20 +136,21 @@ export class MusicasPage {
 
   reorderItems(indexes) {
     this.items = reorderArray(this.items, indexes);
-    let indexToCustom;
-    let qtdSubtract;
-    if (indexes['to'] == 0) {
-      console.log("primeiro item");
-      indexToCustom = indexes['to'] + 1;
-      qtdSubtract = 2;
-    }
-    else {
-      indexToCustom = indexes['to'] - 1;
-      qtdSubtract = 1;
-    }
+
+    console.log(this.items[indexes['from']].id + " > " + this.items[indexes['to']].id);
     console.log(indexes['from'] + " > " + indexes['to']);
-    console.log(this.items[indexToCustom].ordem + "-" + this.items[indexToCustom].titulo);
-    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&orderTo=" + (this.items[indexToCustom].ordem - qtdSubtract);
+
+    let arr: Array<any>;
+    arr = new Array();
+    let aux = 0;
+    for (let i of this.items) {
+      arr[aux] = i.id + '|' + (aux + 1);
+      aux++;
+    }
+
+    //let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&orderTo=" + indexes['to'];
+    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&orderTo="
+      + (indexes['to'] + 1) + "&orderFrom=" + indexes['from'] + "&idFrom=" + arr;
     console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {

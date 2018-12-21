@@ -22,7 +22,10 @@
   <ion-list reorder="{{order ? true : false}}" (ionItemReorder)="reorderItems($event)">
     <button ion-item *ngFor="let i of items; let idx=index" (click)="itemSelected(i)">
       <h2>
+        <!--
         <b>{{idx + 1}}. {{i.titulo}}</b>
+        -->
+        <b>{{i.ordem}}. {{i.titulo}}</b>
       </h2>
       <p>Grupo: {{i.grupo}}</p>
       <p *ngIf="modoAdd">Tom: {{i.tom}}</p>

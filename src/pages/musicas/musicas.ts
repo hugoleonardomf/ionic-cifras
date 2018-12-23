@@ -136,26 +136,22 @@ export class MusicasPage {
 
   reorderItems(indexes) {
     this.items = reorderArray(this.items, indexes);
-
     console.log(this.items[indexes['from']].id + " > " + this.items[indexes['to']].id);
     console.log(indexes['from'] + " > " + indexes['to']);
-
-    let arr: Array<any>;
-    arr = new Array();
+    let arr: Array<any> = new Array();
     let aux = 0;
     for (let i of this.items) {
       arr[aux] = i.id + '|' + (aux + 1);
       aux++;
     }
-
-    //let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&orderTo=" + indexes['to'];
-    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&orderTo="
-      + (indexes['to'] + 1) + "&orderFrom=" + indexes['from'] + "&idFrom=" + arr;
+    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&arrOrder=" + arr;
     console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {
-        // handle update success
-        this.fetchContent();
+        //handle update success
+        //this.fetchContent();
+        this.items = data.data;
+        this.itemsStored = data.data;
       });
   }
 

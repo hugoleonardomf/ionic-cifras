@@ -116,28 +116,42 @@ export class DetalhesPage {
         }
       ]
     });
- 
+
     actionSheet.present();
   }
 
-  fontXSmall(){
+  fontXSmall() {
     this.divCifra.nativeElement.style.fontSize = "x-small";
   }
 
-  fontSmall(){
+  fontSmall() {
     this.divCifra.nativeElement.style.fontSize = "small";
   }
 
-  fontNormal(){
+  fontNormal() {
     this.divCifra.nativeElement.style.fontSize = "14px";
   }
 
-  fontLarge(){
+  fontLarge() {
     this.divCifra.nativeElement.style.fontSize = "large";
   }
 
-  fontXLarge(){
+  fontXLarge() {
     this.divCifra.nativeElement.style.fontSize = "x-large";
+  }
+
+  swipeEvent($event) {
+    console.log($event);
+    if ($event.direction == 2) { //para esquerda
+      if (this.auxNext != this.items.length) {
+        this.goNextItem();
+      }
+    }
+    else if ($event.direction == 4) { //para direita
+      if (this.auxPrev != -1) {
+        this.goPrevItem();
+      }
+    }
   }
 
   //scroll

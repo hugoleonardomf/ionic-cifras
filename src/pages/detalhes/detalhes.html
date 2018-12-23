@@ -2,13 +2,6 @@
   <ion-navbar>
     <ion-title>{{index}}. {{cifra?.titulo}}</ion-title>
     <ion-buttons end>
-      <!--
-      <button ion-button clear (click)="excluirCifra()">Excluir</button>
-      <button ion-button icon-only (click)="presentConfirm()">
-        <ion-icon name="md-close"></ion-icon>
-      </button>
-  	  <button ion-button (click)="editarCifra()" padding-right>Editar</button>
-    -->
       <button ion-button icon-only (click)="goPrevItem()" [disabled]="auxPrev == -1">
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
@@ -18,26 +11,12 @@
       <button ion-button icon-only (click)="presentActionSheet()">
         <ion-icon name="md-more" style="padding-right:10px;"></ion-icon>
       </button>
-      <!--
-	  <button ion-button (click)="scrollTop()" >
-		<ion-icon name="md-arrow-up"></ion-icon>
-	  </button>
-	  <button ion-button (click)="scrollBottom()" padding-right>
-		<ion-icon name="md-arrow-down"></ion-icon>
-	  </button>
-	  <button ion-button (click)="playScroll()" padding-right [hidden]="scrollRun">
-		<ion-icon name="md-play"></ion-icon>
-	  </button>
-	  <button ion-button (click)="pauseScroll()" padding-right [hidden]="!scrollRun">
-		<ion-icon name="md-pause"></ion-icon>
-	  </button>
-	  -->
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <div #divCifra [innerHTML]="cifra?.texto"></div>
+  <div #divCifra [innerHTML]="cifra?.texto" (swipe)="swipeEvent($event)"></div>
 
 </ion-content>

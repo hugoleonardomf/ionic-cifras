@@ -49,7 +49,7 @@ export class RepertoriosPage {
     });
   }
 
-  itemSelectedAdd(item: any) {
+  addMusics(item: any) {
     this.navCtrl.push(MusicasPage, {
       repertorioIdParam: item.id,
       repertorioDescParam: item.descricao,
@@ -78,12 +78,10 @@ export class RepertoriosPage {
           text: 'Salvar',
           handler: data => {
             let urlParams = this.url + "&repertorio_desc=" + data.descricao;
+            console.log(urlParams);
             this.http.get(urlParams).map(res => res.json())
               .subscribe(data => {
                 this.fetchContent();
-                console.log(data.data);
-                //abrir tela de adição de musicas ao criar repert.
-                //this.itemSelectedAdd(data.data[0]);
               });
           }
         }
@@ -126,6 +124,7 @@ export class RepertoriosPage {
 
   remove(item: any) {
     let urlParams = this.url + "&repertorio_id=" + item.id + "&repertorio_sit=0";
+    console.log(urlParams);
     this.http.get(urlParams).map(res => res.json())
       .subscribe(data => {
         this.fetchContent();
@@ -135,7 +134,6 @@ export class RepertoriosPage {
   confirmRemove(item: any) {
     let alert = this.alertCtrl.create({
       title: 'Deseja excluir o Repertório ' + item.descricao + '?',
-      //message: 'Os arquivos também serão excluídos!',
       buttons: [
         {
           text: 'Cancelar',

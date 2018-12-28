@@ -51,7 +51,7 @@ export class MusicasPage {
       urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam;
     }
     else if (this.repertorioIdParam && this.modoAdd) {
-      urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modo_add=1";
+      urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modoAdd=1";
     }
     console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
@@ -63,7 +63,6 @@ export class MusicasPage {
   }
 
   setItemListAdd(item: any, idx: any) {
-    console.log(this.items[idx].selecao);
     if (this.items[idx].selecao == undefined) {
       if (this.items[idx].repertorio_id == this.repertorioIdParam) {
         this.items[idx].selecao = 0;
@@ -80,6 +79,7 @@ export class MusicasPage {
         this.items[idx].selecao = 0;
       }
     }
+    console.log(this.items[idx].selecao);
   }
 
   getItems(ev: any) {
@@ -127,7 +127,8 @@ export class MusicasPage {
       return false;
     }
     let urlParam = this.urlAddMusic;
-    urlParam = urlParam + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modo_add=1" + "&repertorio_arr_music=" + arr;
+    urlParam = urlParam + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_arrMusic=" + arr;
+    console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {
         this.navCtrl.pop();
@@ -144,7 +145,7 @@ export class MusicasPage {
       arr[aux] = i.id + '|' + (aux + 1);
       aux++;
     }
-    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&arrOrder=" + arr;
+    let urlParam = this.url + "&id=" + this.items[indexes['to']].id + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_arrOrder=" + arr;
     console.log(urlParam);
     this.http.get(urlParam).map(res => res.json())
       .subscribe(data => {

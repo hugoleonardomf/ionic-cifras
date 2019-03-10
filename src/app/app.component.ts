@@ -8,6 +8,7 @@ import { ArtistasPage } from '../pages/artistas/artistas';
 import { TonalidadesPage } from '../pages/tonalidades/tonalidades';
 import { RepertoriosPage } from '../pages/repertorios/repertorios';
 import { AcordesCavacoPage } from '../pages/acordes-cavaco/acordes-cavaco';
+import { ApiProvider } from '../providers/api/api';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,12 @@ export class MyApp {
   pagesRepertorios: Array<{ title: string, component: any }>;
   pagesAcordes: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public apiProvider: ApiProvider
+  ) {
 
     this.initializeApp();
     this.pages = [
@@ -44,7 +50,7 @@ export class MyApp {
     ];
     this.pagesRepertorios = [
       { title: 'Repertórios', component: RepertoriosPage },
-    ];    
+    ];
     this.pagesAcordes = [
       { title: 'Cavaco/Banjo', component: AcordesCavacoPage },
     ];
@@ -57,6 +63,10 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // sincronizar remoto, carregar localmente as cifras
+      this.apiProvider.loadData();
+
     });
   }
 

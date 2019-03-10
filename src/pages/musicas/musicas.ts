@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, LoadingController, NavParams, ActionSheetController, ToastController, reorderArray } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { DetalhesPage } from '../detalhes/detalhes';
+import { ApiProvider } from '../../providers/api/api';
+import { UtilsProvider } from '../../providers/utils/utils';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -24,7 +26,17 @@ export class MusicasPage {
   private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas";
   private urlAddMusic: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=repertorios";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public http: Http, public actionSheetCtrl: ActionSheetController, private toast: ToastController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
+    public actionSheetCtrl: ActionSheetController,
+    private toast: ToastController,
+    private apiProvider: ApiProvider,
+    private utilsProvider: UtilsProvider,
+    public http: Http
+  ) {
     this.grupoParam = this.navParams.get('grupoParam');
     this.tomParam = this.navParams.get('tomParam');
     this.repertorioIdParam = this.navParams.get('repertorioIdParam');
@@ -40,26 +52,58 @@ export class MusicasPage {
       content: 'Carregando...'
     });
     loading.present();
-    let urlParam = this.url; //padrão, retorna todas as musicas
-    if (this.grupoParam) {
-      urlParam = this.url + "&grupo=" + this.removeAcento(this.grupoParam);
+    let urlParam = this.url;
+
+    if (this.grupoParam) { // todas por artista
+      this.apiProvider.getAllByArtista(this.grupoParam)
+        .then((result) => {
+          result = this.utilsProvider.sortArray(result, "titulo", 1);
+          this.items = result;
+          this.itemsStored = result;
+          loading.dismiss();
+        });
     }
-    else if (this.tomParam) {
-      urlParam = this.url + "&tom=" + this.tomParam.replace('+', '0').replace('#', 'Z');
+    else if (this.tomParam) { // todas por tom
+      this.apiProvider.getAllByTom(this.tomParam)
+        .then((result) => {
+          result = this.utilsProvider.sortArray(result, "titulo", 1);
+          this.items = result;
+          this.itemsStored = result;
+          loading.dismiss();
+        });
     }
     else if (this.repertorioIdParam && !this.modoAdd) {
       urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam;
+      console.log('repertorio por id');
+      console.log(urlParam);
+      this.http.get(urlParam).map(res => res.json())
+        .subscribe(data => {
+          this.items = data.data;
+          this.itemsStored = data.data;
+          loading.dismiss();
+        });
     }
     else if (this.repertorioIdParam && this.modoAdd) {
       urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modoAdd=1";
+      console.log('repertorio por id - modo add');
+      console.log(urlParam);
+      this.http.get(urlParam).map(res => res.json())
+        .subscribe(data => {
+          this.items = data.data;
+          this.itemsStored = data.data;
+          loading.dismiss();
+        });
     }
-    console.log(urlParam);
-    this.http.get(urlParam).map(res => res.json())
-      .subscribe(data => {
-        this.items = data.data;
-        this.itemsStored = data.data;
-        loading.dismiss();
-      });
+    else { // todas cifras
+      this.apiProvider.getAllCifras()
+        .then((result) => {
+          result = this.utilsProvider.sortArray(result, "titulo", 1);
+          this.items = result;
+          this.itemsStored = result;
+          loading.dismiss();
+        });
+    }
+
   }
 
   setItemListAdd(item: any, idx: any) {
@@ -90,7 +134,7 @@ export class MusicasPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        return (this.removeAcento(item.titulo).toLowerCase().indexOf(this.removeAcento(val).toLowerCase()) > -1);
+        return (this.utilsProvider.removeAcento(item.titulo).toLowerCase().indexOf(this.utilsProvider.removeAcento(val).toLowerCase()) > -1);
       })
     }
     else {
@@ -182,10 +226,6 @@ export class MusicasPage {
     });
 
     actionSheet.present();
-  }
-
-  removeAcento(value) {
-    return value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
 }

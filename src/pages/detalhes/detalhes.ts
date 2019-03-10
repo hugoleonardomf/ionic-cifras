@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ViewController, LoadingController, ModalController, ActionSheetController, Content } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ElementRef } from '@angular/core';
+import { ApiProvider } from '../../providers/api/api';
 
 @Component({
   selector: 'page-detalhes',
@@ -20,9 +21,18 @@ export class DetalhesPage {
   public auxPrev: any;
   public auxNext: any;
 
-  private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";
+  //private url: string = "http://www.sisvend.com.br/cifras/service/json.php?key=f1f58e8c06b2a61ce13e0c0aa9473a72&q=musicas&id=";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public http: Http, public actionSheetCtrl: ActionSheetController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
+    private apiProvider: ApiProvider,
+    public http: Http
+  ) {
     this.items = this.navParams.get('listaParam');
     this.cifraId = this.navParams.get('cifraIdParam');
     this.setPrevNextItem();
@@ -34,10 +44,19 @@ export class DetalhesPage {
       content: 'Carregando...'
     });
     loading.present();
-    let paramsUrl = this.cifraId;
-    this.http.get(this.url + paramsUrl).map(res => res.json())
-      .subscribe(data => {
-        this.cifra = data.data[0];
+
+    // let paramsUrl = this.cifraId;
+
+    // this.http.get(this.url + paramsUrl).map(res => res.json())
+    //   .subscribe(data => {
+    //     this.cifra = data.data[0];
+    //     loading.dismiss();
+    //     this.scrollTop();
+    //   });
+
+    this.apiProvider.getCifraById(this.cifraId)
+      .then((result) => {
+        this.cifra = result;
         loading.dismiss();
         this.scrollTop();
       });

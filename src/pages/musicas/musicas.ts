@@ -73,17 +73,17 @@ export class MusicasPage {
         });
     }
     else if (this.repertorioIdParam && !this.modoAdd) {
-      urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam;
-      console.log('repertorio por id');
-      console.log(urlParam);
-      this.http.get(urlParam).map(res => res.json())
-        .subscribe(data => {
-          this.items = data.data;
-          this.itemsStored = data.data;
+      this.apiProvider.getMusicasPorRepertorioId(this.repertorioIdParam)
+        .then((result) => {
+          console.log(result);
+          result = this.utilsProvider.sortArray(result, "ordem", 1);
+          this.items = result;
+          this.itemsStored = result;
           loading.dismiss();
         });
     }
     else if (this.repertorioIdParam && this.modoAdd) {
+      // modo web
       urlParam = this.url + "&repertorio_id=" + this.repertorioIdParam + "&repertorio_modoAdd=1";
       console.log('repertorio por id - modo add');
       console.log(urlParam);

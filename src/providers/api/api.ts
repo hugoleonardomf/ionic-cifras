@@ -144,8 +144,35 @@ export class ApiProvider {
     });
   }
 
+  public getMusicasPorRepertorioId(param: string) {
+    let cifras: any[] = [];
+    return this.storage.forEach((value: any, key: string) => {
+      if (key !== 'repertorios') {
+        let cifra: any;
+        cifra = value;
+        cifras.push(cifra);
+      }
+    }).then(() => {
+      let cifrasRepert: any[] = [];
+      for (let x = 0; x < cifras.length; x++) {
+        if (cifras[x].repertorios) {
+          for (let y = 0; y < cifras[x].repertorios.length; y++) {
+            if (cifras[x].repertorios[y].id == param) {
+              cifras[x].ordem = cifras[x].repertorios[y].ordem;
+              cifrasRepert.push(cifras[x]);
+              break;
+            }
+          }
+        }
+      }
+      return Promise.resolve(cifrasRepert);
+    }).catch((error) => {
+      return Promise.reject(error);
+    });
+  }
+
   /*
-  // offline/localdata
+  // OFFLINE/LOCALDATA
   */
   loadData() {
     this.http.get(this.url).map(res => res.json())
@@ -161,15 +188,19 @@ export class ApiProvider {
       });
   }
 
+  salvarCifraStorage(param: any) {
+    this.save(param.id, param);
+  }
+
   // add in storage
-  public insert(cifra: any) {
-    let key = cifra.id;
-    return this.save(key, cifra);
+  public insert(obj: any) {
+    let key = obj.id;
+    return this.save(key, obj);
   }
 
   // save in storage
-  private save(key: string, cifra: any) {
-    return this.storage.set(key, cifra);
+  private save(key: string, obj: any) {
+    return this.storage.set(key, obj);
   }
 
 }

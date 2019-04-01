@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, LoadingController, AlertController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { MusicasPage } from '../musicas/musicas';
-import 'rxjs/add/operator/map';
 import { ApiProvider } from '../../providers/api/api';
 import { UtilsProvider } from '../../providers/utils/utils';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-repertorios',

@@ -16,7 +16,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content overflow-scroll="true">
 
   <ion-searchbar (ionInput)="getItems($event)" placeholder="Pesquisar" animated="true"></ion-searchbar>
   <ion-list reorder="{{order ? true : false}}" (ionItemReorder)="reorderItems($event)">

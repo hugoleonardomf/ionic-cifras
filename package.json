@@ -14,7 +14,7 @@
   "dependencies": {
     "@angular/common": "5.2.11",
     "@angular/compiler": "5.2.11",
-    "@angular/compiler-cli": "^5.2.11",
+    "@angular/compiler-cli": "5.2.11",
     "@angular/core": "5.2.11",
     "@angular/forms": "5.2.11",
     "@angular/http": "5.2.11",
@@ -37,10 +37,11 @@
     "n": "2.1.12",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "@angular/animations": "5.2.11"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.2.3",
+    "@ionic/app-scripts": "3.2.1",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",

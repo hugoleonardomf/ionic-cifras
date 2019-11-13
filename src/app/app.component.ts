@@ -43,17 +43,17 @@ export class MyApp {
       { title: 'Repertórios', component: RepertoriosPage },
       { title: '# Acordes Cavaco', component: AcordesCavacoPage },
     ];
-    this.pagesMusicas = [
-      { title: 'Todas as Músicas', component: MusicasPage },
-      { title: 'Por Artista/Grupo', component: ArtistasPage },
-      { title: 'Por Tonalidade', component: TonalidadesPage },
-    ];
-    this.pagesRepertorios = [
-      { title: 'Repertórios', component: RepertoriosPage },
-    ];
-    this.pagesAcordes = [
-      { title: 'Cavaco/Banjo', component: AcordesCavacoPage },
-    ];
+    // this.pagesMusicas = [
+    //   { title: 'Todas as Músicas', component: MusicasPage },
+    //   { title: 'Por Artista/Grupo', component: ArtistasPage },
+    //   { title: 'Por Tonalidade', component: TonalidadesPage },
+    // ];
+    // this.pagesRepertorios = [
+    //   { title: 'Repertórios', component: RepertoriosPage },
+    // ];
+    // this.pagesAcordes = [
+    //   { title: 'Cavaco/Banjo', component: AcordesCavacoPage },
+    // ];
 
   }
 

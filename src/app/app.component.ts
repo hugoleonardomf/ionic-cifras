@@ -24,9 +24,6 @@ export class MyApp {
   rootPage: any = RepertoriosPage;
 
   pages: Array<{ title: string, component: any }>;
-  pagesMusicas: Array<{ title: string, component: any }>;
-  pagesRepertorios: Array<{ title: string, component: any }>;
-  pagesAcordes: Array<{ title: string, component: any }>;
 
   constructor(
     public platform: Platform,
@@ -36,6 +33,7 @@ export class MyApp {
   ) {
 
     this.initializeApp();
+
     this.pages = [
       { title: 'Todas as Músicas', component: MusicasPage },
       { title: 'Por Artista/Grupo', component: ArtistasPage },
@@ -43,17 +41,6 @@ export class MyApp {
       { title: 'Repertórios', component: RepertoriosPage },
       { title: '# Acordes Cavaco', component: AcordesCavacoPage },
     ];
-    // this.pagesMusicas = [
-    //   { title: 'Todas as Músicas', component: MusicasPage },
-    //   { title: 'Por Artista/Grupo', component: ArtistasPage },
-    //   { title: 'Por Tonalidade', component: TonalidadesPage },
-    // ];
-    // this.pagesRepertorios = [
-    //   { title: 'Repertórios', component: RepertoriosPage },
-    // ];
-    // this.pagesAcordes = [
-    //   { title: 'Cavaco/Banjo', component: AcordesCavacoPage },
-    // ];
 
   }
 
